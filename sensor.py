@@ -3,36 +3,35 @@ import tkinter as tk
 from tkinter import font  
 from time import sleep  
 
-sensor_1 = DistanceSensor(echo=23, trigger=24, max_distance=10)
-sensor_2 = DistanceSensor(echo=17, trigger=27, max_distance=10)
+sensor1 = DistanceSensor(echo=23, trigger=24, max_distance=10)
+sensor2 = DistanceSensor(echo=17, trigger=27, max_distance=10)
 distanceBound = 5
 
 window = tk.Tk()
 window.title("Distance Measurement")
-custom_font = font.Font(size=30) 
+customFont = font.Font(size=30) 
 window.geometry("800x400") 
 
-distance_label_1 = tk.Label(window, text="Distance: ", anchor='center', font=custom_font)
-distance_label_2 = tk.Label(window, text="Distance: ", anchor='center', font=custom_font)
-distance_label_3 = tk.Label(window, text="Posture: ", anchor='center', font=custom_font)
+distanceLabel1 = tk.Label(window, text="Distance: ", anchor='center', font=customFont)
+distanceLabel2 = tk.Label(window, text="Distance: ", anchor='center', font=customFont)
+distanceLabel3 = tk.Label(window, text="Posture: ", anchor='center', font=customFont)
 
-distance_label_1.pack()
-distance_label_2.pack() 
-distance_label_3.pack()
+distanceLabel1.pack()
+distanceLabel2.pack() 
+distanceLabel3.pack()
 
-def isPostureCorrect(distance_1, distance_2):
-    return abs(distance_1 - distance_2) < distanceBound
+def isPostureCorrect(distance1, distance2):
+    return abs(distance1 - distance2) < distanceBound
 
-def measure_distance():
-
-    distance_1 = int(sensor_1.distance * 100)
-    distance_2 = int(sensor_2.distance * 100) 
+def measureDistance():
+    distance1 = int(sensor1.distance * 100)
+    distance2 = int(sensor2.distance * 100) 
     
-    distance_label_1.config(fg="red", text="Distance: {} cm\nHi!".format(distance_1))
-    distance_label_2.config(fg="red", text="Distance: {} cm\nHi!".format(distance_2))
-    distance_label_3.config(fg="red", text="Posture: {} ".format(isPostureCorrect(distance_1, distance_2)))
-    window.after(100, measure_distance)  
+    distanceLabel1.config(fg="red", text="Distance: {} cm\n".format(distance1))
+    distanceLabel2.config(fg="red", text="Distance: {} cm\n".format(distance2))
+    distanceLabel3.config(fg="red", text="Posture: {} ".format(isPostureCorrect(distance1, distance2)))
+    window.after(100, measureDistance)  
 
-measure_distance()
+measureDistance()
 
 window.mainloop()
